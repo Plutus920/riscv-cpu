@@ -14,7 +14,7 @@ reg [31:0] shift_right_1;
 reg [31:0] shift_right_2;
 reg [31:0] shift_right_4;
 reg [31:0] shift_right_8;
-reg [31:16] shift_right_fill; 
+reg [15:0] shift_right_fill; 
 
 reg [31:0] result; 
 
@@ -46,7 +46,7 @@ always @(in or n or dir) begin
         if (n[2] == 1'b1)
             shift_left_4 = {shift_left_2[27:0], 4'b0000};
         else 
-            shift_left 4 = shift_left_2;
+            shift_left_4 = shift_left_2;
         
         if (n[3] == 1'b1)
             shift_left_8 = {shift_left_4[23:0], 8'b00000000};
@@ -54,7 +54,7 @@ always @(in or n or dir) begin
             shift_left_8 = shift_left_4;
         
         if(n[4] == 1'b1)
-            result = {shift_left_8[15:0], 16'0000000000000000};
+            result = {shift_left_8[15:0], 16'b0000000000000000};
         else
             result = shift_left_8; 
 
@@ -85,8 +85,8 @@ always @(in or n or dir) begin
         else 
             shift_right_8 = shift_right_4;
 
-        if(n[4] == 1'b)
-            result = {shift_right_fill[31:16], shift_right_3[31: 16]};
+        if(n[4] == 1'b1)
+            result = {shift_right_fill[31:16], shift_right_8[31: 16]};
         else 
             result = shift_right_8; 
         end
