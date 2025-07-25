@@ -5,5 +5,5 @@
 'define ALU_OR                          4'b0100
 'define ALU_XOR                         4'b0101
 'define ALU_SHIFTL                      4'b0110
-'define ALU_SHIFT                       4'b0111
+'define ALU_SHIFTR                      4'b0111
 'define ALU_SHIFTR_ARITH                4'b1000
