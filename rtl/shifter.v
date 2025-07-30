@@ -3,7 +3,7 @@ module barrel_shifter(
                         input [4:0] n,
                         input dir,
                         input arith,
-                        output [31:0] out);
+                        output wire [31:0] out);
 
 reg [31:0] shift_left_1;
 reg [31:0] shift_left_2;
@@ -22,6 +22,8 @@ reg [31:0] result;
 
 always @(in or n or dir or arith) begin 
     
+    $display("SHIFTER DEBUG: in=%h, n=%d, dir=%b, arith=%b", in, n, dir, arith);
+
     result = 32'b0;
     
     shift_left_1 = 32'b0;
@@ -40,7 +42,7 @@ always @(in or n or dir or arith) begin
     
     
     if(dir==0) begin //left shift
-    
+
         if(n[0] == 1'b1)
             shift_left_1 = {in[30:0],1'b0};
         else
@@ -68,12 +70,18 @@ always @(in or n or dir or arith) begin
         
         result = shift_left_16; 
 
+        $display("SHIFTL DEBUG: in=%h, n=%d", in, n);
+        $display("stages: 1:%h, 2:%h, 4:%h, 8:%h, 16:%h, final:%h\n\n",
+                    shift_left_1, shift_left_2, shift_left_4, shift_left_8,
+                    shift_left_16, result);
+
+
     end else begin  //right shift
 
         if (in[31] == 1 && arith == 1) 
-            shift_right_fill = 16'b1111111111111111;
+            shift_right_fill = 32'b1;
         else
-            shift_right_fill = 16'b0000000000000000;
+            shift_right_fill = 32'b0;
 
         if(n[0] == 1'b1)
             shift_right_1 = {shift_right_fill[31], in[31:1]};

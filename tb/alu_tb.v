@@ -27,20 +27,25 @@ task test_alu;
     opcode = op; 
     a = rs_a; 
     b = rs_b; 
-    #1;
+    #5;
 
     if (out != expected)
-        $display("FAIL: opcode=%b a=%h b=%h --> out=%h (expected = %h)", op, rs_a, rs_b, out, expected);
+        $display("FAIL: opcode=%b a=%h b=%h --> out=%h (expected = %h)\n\n", op, rs_a, rs_b, out, expected);
 
     else
-        $display("PASS: opcode=%b a=%h b=%h --> out=%h", op, rs_a, rs_b, out);
+        $display("PASS: opcode=%b a=%h b=%h --> out=%h\n\n", op, rs_a, rs_b, out);
     end
 endtask 
 
 //simulation
 
 initial begin 
-    $display("ALU TEST BEGIN...");
+
+    opcode = 4'b0;
+    a = 32'b0;
+    b = 32'b0;
+    
+    $display("ALU TEST BEGIN...\n");
 
     //arithmetic operations
 
