@@ -23,19 +23,12 @@ barrel_shifter shifter_inst( .in(a),
                             );
 
 
-wire shift_op = (   opcode == `ALU_SHIFTL ||
-                    opcode == `ALU_SHIFTR ||
-                    opcode == `ALU_SHIFTR_ARITH);
 
-wire [31:0] shift_op_result = shift_op ? shift_output : 32'b0;
 
-always @(opcode or a or b) begin 
+always @(*) begin 
 
     out = 32'b0; 
   
-    $display("ALU DEBUG: opcode=%b, a=%h, b=%h, shift_result=%h", opcode, a, b, shift_output);
-
-
     case (opcode)
 
     `ALU_ADD: out = (a + b);
@@ -48,14 +41,12 @@ always @(opcode or a or b) begin
 
     `ALU_XOR: out =  (a^b);
 
-    `ALU_SHIFTL,
+    `ALU_SHIFTL: out = shift_output; 
 
-    `ALU_SHIFTR,
+    `ALU_SHIFTR: out = shift_output; 
 
-    `ALU_SHIFTR_ARITH: begin
-        #10;
-        out = shift_op_result;
-    end
+    `ALU_SHIFTR_ARITH: out = shift_output;
+
     default: out = 32'b0; 
     endcase 
 end

@@ -21,8 +21,6 @@ reg [31:0] shift_right_fill;
 reg [31:0] result; 
 
 always @(in or n or dir or arith) begin 
-    
-    $display("SHIFTER DEBUG: in=%h, n=%d, dir=%b, arith=%b", in, n, dir, arith);
 
     result = 32'b0;
     
@@ -70,18 +68,14 @@ always @(in or n or dir or arith) begin
         
         result = shift_left_16; 
 
-        $display("SHIFTL DEBUG: in=%h, n=%d", in, n);
-        $display("stages: 1:%h, 2:%h, 4:%h, 8:%h, 16:%h, final:%h\n\n",
-                    shift_left_1, shift_left_2, shift_left_4, shift_left_8,
-                    shift_left_16, result);
-
-
+      
     end else begin  //right shift
 
+
         if (in[31] == 1 && arith == 1) 
-            shift_right_fill = 32'b1;
+            shift_right_fill = 32'hFFFFFFFF;
         else
-            shift_right_fill = 32'b0;
+            shift_right_fill = 32'h00000000;
 
         if(n[0] == 1'b1)
             shift_right_1 = {shift_right_fill[31], in[31:1]};
@@ -110,6 +104,7 @@ always @(in or n or dir or arith) begin
 
         result = shift_right_16; 
         end
+
     end
 
     assign out = result; 

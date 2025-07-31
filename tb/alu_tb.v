@@ -39,7 +39,10 @@ endtask
 
 //simulation
 
-initial begin 
+initial begin
+    
+    $dumpfile("waveforms/alu.vcd");
+    $dumpvars(0, alu_tb);
 
     opcode = 4'b0;
     a = 32'b0;
@@ -69,7 +72,7 @@ initial begin
 
     //shift right (arithmetic)
 
-    test_alu(`ALU_SHIFTR_ARITH, 32'h80000000, 32'd4, 32'hF0000000);
+    test_alu(`ALU_SHIFTR_ARITH, 32'h80000000, 32'd4, 32'hF8000000);
 
     $display("ALU TEST END...");
     $finish;
