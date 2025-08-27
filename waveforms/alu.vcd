@@ -1,5 +1,5 @@
 $date
-	Thu Jul 31 20:56:49 2025
+	Thu Aug  7 17:57:44 2025
 $end
 $version
 	Icarus Verilog
@@ -48,6 +48,9 @@ $var reg 32 > rs_b [31:0] $end
 $upscope $end
 $upscope $end
 $enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
 #0
 $dumpvars
 b1111 >
